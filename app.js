@@ -11,7 +11,7 @@ app.use(express.json())
 //app.use(checkListRouter) => deve deixar a rota completa no checklist
 //** se usado: app.use('/checklist', checklistRouter) ao invés do usado acima lá na rota poode deixar só /
 //quer dizer que todas as rotas do checklistRouter são derivadas da rota checklist
-app.use('/checklist', checkListRouter)
+app.use('/checklist',checkListRouter)
 
 app.listen(3000, () => {
     console.log('Servidor rodando')

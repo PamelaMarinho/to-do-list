@@ -1,17 +1,22 @@
-const express = require ('express')
+const express = require('express')
 
-const router = express.Router();
+const router = express.Router()
+const Checklist = require('../models/checklist')
 
 // pode usar somente '/' se no app **
 router.get('/', (req, res) => {
     console.log('foi feita uma requisição get')
-    res.send('rota certa');
+    res.send('rota certa')
 })
 
-router.post ('/', (req, res) => {
-    console.log('foi feita uma requisição tipo post')
-    console.log(req.body)
-    res.status (200) .json (req.body)
+router.post('/', async (req, res) => {
+    let {name} = req.body
+    try {       
+        let checklist = await Checklist.create({ name })
+        res.status(200).json(checklist)
+    } catch (error) {
+        res.status(422).json(error)
+    }
 })
 
 router.get('/:id', (req, res) => {
