@@ -11,6 +11,7 @@ const app = express()
 vai deixar disponível no req.body(body da requisição*/
 //express.json retorna apenas mid que analise json e em requisições
 app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 app.use(express.static(path.join(__dirname,'public')))//dizendo ao express o local dos arquivos estáticos
 
