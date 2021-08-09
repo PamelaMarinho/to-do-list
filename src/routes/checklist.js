@@ -6,8 +6,8 @@ const Checklist = require('../models/checklist')
 // pode usar somente '/' se no app **
 router.get('/', async (req, res) => {
     try {
-        let checklists = await Checklist.find()
-        res.status(200).render('checklists/index', {checklist: checklists})
+        let checklist = await Checklist.find()
+        res.status(200).render('checklists/index', {varCheck: checklist})
     } catch (error) {
         res.status(422).render('pages/error', {error: 'erro durante validação'})
     }
@@ -16,27 +16,27 @@ router.get('/', async (req, res) => {
 router.get('/new', async( req, res) => {
     try {
         let checklist = new Checklist()
-        res.status(200).render('checklists/new', {checklist: checklist})
+        res.status(200).render('checklists/new', {varCheck: checklist})
     } catch (error) {
         res.status(500).render('pages/error', {errors: 'Erro ao carregar o formulario'})
     }
 })
 
 router.post('/', async (req, res) => {
-    let {name} = req.body.checklist
+    let {name} = req.body.varCheck
     let checklist = new Checklist({name})
     try {       
         await checklist.save()
-        res.redirect('/checklists')
+        res.redirect('checklists')
     } catch (error) {
-        res.status(422).render('checklists/new', {checklist: {...checklist, error}})
+        res.status(422).render('checklists/new', {varCheck: {...checklist, error}})
     }
 })
 
 router.get('/:id', async (req, res) => {    
         try {
         let checklist = await Checklist.findById(req.params.id)
-        res.status(200).render('checklists/show', {checklists: checklist})
+        res.status(200).render('checklists/show', {varCheck: checklist})
     } catch (error) {
         res.status(422).render('pages/error', {error: 'algum erro'})
     }
